@@ -1,0 +1,18 @@
+{
+        "tabela": "T_LEITOS",
+        "colunas": {
+            "cod_ibge": {
+                "alias": "cod_ibge", "tipo": "int"
+            },
+            "periodos": {
+                "alias": "ano", "tipo": "str"
+            },
+            "leitos_sus_hab": {
+                "alias": "qt_sus", "tipo": "float"
+            },
+            "leitos_nao_sus": {
+                "alias": "qt_nsus", "tipo": "int"
+            }
+
+        }
+    }

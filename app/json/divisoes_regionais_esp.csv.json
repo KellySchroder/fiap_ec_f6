@@ -1,0 +1,33 @@
+{
+  "tabela": "T_MUNICIPIOS",
+  "colunas": {
+    "Cod_ibge": {
+      "alias": "cod_ibge",
+      "tipo": "int"
+    },
+    "Município": {
+      "alias": "municipio",
+      "tipo": "str"
+    },
+    "Cod_RA": {
+      "alias": "cod_ra",
+      "tipo": "int"
+    },
+    "Região Administrativa": {
+      "alias": "regiao_adm",
+      "tipo": "str"
+    },
+    "Região Metropolitana": {
+      "alias": "regiao",
+      "tipo": "str"
+    },
+    "Latitude": {
+      "alias": "latitude",
+      "tipo": "float"
+    },
+    "Longitude": {
+      "alias": "longitude",
+      "tipo": "float"
+    }
+  }
+}

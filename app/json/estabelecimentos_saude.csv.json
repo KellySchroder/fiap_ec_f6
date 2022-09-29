@@ -1,0 +1,29 @@
+{
+    "tabela": "T_ESTAB_SAUDE",
+    "colunas": {
+        "cod_ibge": {
+            "alias": "cod_ibge", "tipo": "int"
+        },
+        "tiposeade": {
+            "alias": "tipo_estab", "tipo": "str"
+        },
+        "estadual": {
+            "alias": "qt_estadual", "tipo": "int"
+        },
+        "federal": {
+            "alias": "qt_federal", "tipo": "int"
+        },
+        "municipal": {
+            "alias": "qt_municipal", "tipo": "int"
+        },
+        "particular": {
+            "alias": "qt_particular", "tipo": "int"
+        }
+    },
+    "colunas_extras": {
+        "ano": {
+            "default": "2022",
+            "tipo": "str"
+        }
+    }
+}

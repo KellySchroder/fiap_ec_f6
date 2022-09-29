@@ -1,0 +1,14 @@
+{
+        "tabela": "T_POPULACAO",
+        "colunas": {
+            "Código IBGE": {
+                "alias": "cod_ibge", "tipo": "int"
+            },
+            "Ano": {
+                "alias": "ano", "tipo": "str"
+            },
+            "População": {
+                "alias": "qt_pop", "tipo": "int"
+            }
+        }
+    }

@@ -1,0 +1,23 @@
+{
+    "tabela": "T_PROF_SAUDE",
+    "colunas": {
+        "cod_ibge": {
+            "alias": "cod_ibge", "tipo": "int"
+        },
+        "medenf": {
+          "alias": "tipo_prof", "tipo": "str"
+        },
+        "prof_sus": {
+            "alias": "qt_sus", "tipo": "int"
+        },
+        "prof_nsus": {
+            "alias": "qt_nsus", "tipo": "int"
+        }
+    },
+    "colunas_extras": {
+        "ano": {
+            "default": "2022",
+            "tipo": "str"
+        }
+    }
+}
