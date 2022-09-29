@@ -1,14 +1,15 @@
 {
-        "tabela": "T_POPULACAO",
-        "colunas": {
-            "Código IBGE": {
-                "alias": "cod_ibge", "tipo": "int"
-            },
-            "Ano": {
-                "alias": "ano", "tipo": "str"
-            },
-            "População": {
-                "alias": "qt_pop", "tipo": "int"
-            }
+    "url": "https://repositorio.seade.gov.br/dataset/08103e8c-95f6-4627-856b-a92071b97207/resource/0c1e573a-9e94-439c-a22c-1f4d1b5e3ee2/download/populacao2022.csv",
+    "tabela": "T_POPULACAO",
+    "colunas": {
+        "Código IBGE": {
+            "alias": "cod_ibge", "tipo": "int"
+        },
+        "Ano": {
+            "alias": "ano", "tipo": "str"
+        },
+        "População": {
+            "alias": "qt_pop", "tipo": "int"
         }
     }
+}

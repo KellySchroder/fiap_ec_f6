@@ -1,18 +1,19 @@
 {
-        "tabela": "T_LEITOS",
-        "colunas": {
-            "cod_ibge": {
-                "alias": "cod_ibge", "tipo": "int"
-            },
-            "periodos": {
-                "alias": "ano", "tipo": "str"
-            },
-            "leitos_sus_hab": {
-                "alias": "qt_sus", "tipo": "float"
-            },
-            "leitos_nao_sus": {
-                "alias": "qt_nsus", "tipo": "int"
-            }
-
+    "url": "https://repositorio.seade.gov.br/dataset/aa78dc57-c066-497b-9304-69494deb1919/resource/6abdf72b-5e0f-4dc9-942a-793ba2eabdd0/download/saude_leitos_mun_ano.csv",
+    "tabela": "T_LEITOS",
+    "colunas": {
+        "cod_ibge": {
+            "alias": "cod_ibge", "tipo": "int"
+        },
+        "periodos": {
+            "alias": "ano", "tipo": "str"
+        },
+        "leitos_sus_hab": {
+            "alias": "qt_sus", "tipo": "float"
+        },
+        "leitos_nao_sus": {
+            "alias": "qt_nsus", "tipo": "int"
         }
+
     }
+}

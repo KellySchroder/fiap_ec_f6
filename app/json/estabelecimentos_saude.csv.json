@@ -1,4 +1,5 @@
 {
+    "url": "https://repositorio.seade.gov.br/dataset/8f0e7542-4286-4e66-ae41-fcec18bcd914/resource/fac11f58-69c2-46e1-865c-877de1ce5011/download/estabelecimentos_saude.csv",
     "tabela": "T_ESTAB_SAUDE",
     "colunas": {
         "cod_ibge": {

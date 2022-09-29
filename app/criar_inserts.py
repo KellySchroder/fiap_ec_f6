@@ -2,11 +2,16 @@
 import json
 import os
 import shutil
+import urllib3
 from datetime import datetime
 
 # Importarção das blibliotecas externas
 import oracledb
+import requests
 from dotenv import load_dotenv
+
+# Suprimir aviso do SSL do site do governo
+urllib3.disable_warnings()
 
 # Carregamento do arquivo com as variaveis de ambiente
 # essas variaveis contém dados sensiveis
@@ -29,7 +34,7 @@ ORDEM_ARQUIVOS_TABELAS = [
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_HOST = os.getenv('DB_HOST')
-DB_PORT = int(os.getenv('DB_PORT'))
+DB_PORT = int(os.getenv('DB_PORT', 0))
 DB_SID = os.getenv('DB_SID')
 
 
@@ -46,15 +51,18 @@ def criar_carga_de_dados(arquivo_nome):
     arquivo_json = os.path.join(DIRETORIO_JSON, arquivo_nome + '.json')
     arquivo_sql = os.path.join(DIRETORIO_SQL, arquivo_nome + '.sql')
 
-    # Leitura do arquivo de carga csv
-    conteudo_arquivo = None
-    with open(arquivo_csv, 'r') as f:
-        conteudo_arquivo = f.readlines()
-
     # Leitura do arquivo de estrutura json
     estrutura = None
     with open(arquivo_json, 'r', encoding="UTF-8") as f:
         estrutura = json.loads(f.read())
+
+    # Download do arquivo CSV
+    download_arquivo_csv(estrutura.get('url'), arquivo_csv)
+
+    # Leitura do arquivo de carga csv
+    conteudo_arquivo = None
+    with open(arquivo_csv, 'r', encoding="UTF-8") as f:
+        conteudo_arquivo = f.readlines()
 
     # Leitura dos nomes das colunas do arquivo csv
     cabecalho = [
@@ -79,16 +87,13 @@ def criar_carga_de_dados(arquivo_nome):
 
         # Iteração pelas colunas existentes no arquivo csv
         for ix in range(0, len(cabecalho)):
-
             # Verifica se o valor do cabeçalho na posição ix está
             # entre as colunas declaradas no json de estrutura
             if cabecalho[ix] in estrutura.get("colunas").keys():
-                # Verifica se o nome da tabela está entre os valores declarados: T_LEITOS ou T_PROF_SAUDE
-                # e se o cabeçalho na posição ix é cod_ibge
+                # Verifica se o cabeçalho na posição ix é cod_ibge
                 # e se linha na posição ix é vazia
-                if estrutura.get("tabela") in ('T_LEITOS','T_PROF_SAUDE') \
-                   and cabecalho[ix] == 'cod_ibge' \
-                   and linha[ix].strip() == '':
+                if estrutura.get("colunas").get(cabecalho[ix]).get('alias') == 'cod_ibge' \
+                   and not linha[ix].strip():
                     # Não considerar a linha como valida
                     # e interrompe a iteração do resto das colunas
                     valores_validos = {}
@@ -98,18 +103,18 @@ def criar_carga_de_dados(arquivo_nome):
                 if estrutura.get("colunas").get(cabecalho[ix]).get('tipo') == 'str':
                     # Se for texto escapa o apóstrofo (ajuste para o SQL)
                     # e coloca o valor entre aspas simples
-                    linha[ix] = linha[ix].replace("'", "''")
+                    linha[ix] = linha[ix].strip().replace("'", "''")
                     valores_validos[cabecalho[ix]] = f"'{linha[ix]}'"
                 elif estrutura.get("colunas").get(cabecalho[ix]).get('tipo') == 'float':
                     # Se for decimal substitui virgula por ponto
-                    valores_validos[cabecalho[ix]] = linha[ix].replace(',', '.')
+                    valores_validos[cabecalho[ix]] = linha[ix].strip().replace(',', '.')
                 elif estrutura.get("colunas").get(cabecalho[ix]).get('tipo') == 'int':
                     # Se for inteiro remove os pontos de formatação existentes
-                    valores_validos[cabecalho[ix]] = linha[ix].replace('.', '')
+                    valores_validos[cabecalho[ix]] = linha[ix].strip().replace('.', '')
                 else:
                     # Caso não atenda a nenhum dos critérios anteriores,
                     # recebe o valor da variavel sem alterações
-                    valores_validos[cabecalho[ix]] = linha[ix]
+                    valores_validos[cabecalho[ix]] = linha[ix].strip()
 
         # Verifica se a variavel está preenchida
         if valores_validos:
@@ -184,6 +189,7 @@ def executar_inserts(inserts):
         # Realiza o commit da transação
         connection.commit()
 
+
 def truncates():
     """
     Função responsável realizar a conexão com o banco de dados
@@ -213,14 +219,36 @@ def truncates():
                 connection.commit()
 
 
+def download_arquivo_csv(url, arquivo_csv):
+    """
+    Função responsável realizar o download do arquivo csv para o disco local
+    :param url: URL do arquivo
+    :param arquivo_csv: Nome do arquivo que será salvo
+    :return: None
+    """
+
+    # Executa a requisição do arquivo
+    response = requests.request("GET", url, verify=False, allow_redirects=True)
+    # Escreve o arquivo no disco local
+    with open(arquivo_csv, "w", encoding="UTF-8") as f:
+        f.write(response.text.replace('\r\n', '\n'))
+
+
 if __name__ == '__main__':
+
     # Verifica se o diretório existe
     if os.path.isdir(DIRETORIO_SQL):
         # Remove o diretório e seus arquivos
         shutil.rmtree(DIRETORIO_SQL)
-
     # Cria o diretório
     os.mkdir(DIRETORIO_SQL)
+
+    # Verifica se o diretório existe
+    if os.path.isdir(DIRETORIO_CSV):
+        # Remove o diretório e seus arquivos
+        shutil.rmtree(DIRETORIO_CSV)
+    # Cria o diretório
+    os.mkdir(DIRETORIO_CSV)
 
     # Variavel para controle de tempo da execução
     inicio = datetime.now()

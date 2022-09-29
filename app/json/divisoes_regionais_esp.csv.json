@@ -1,33 +1,34 @@
 {
-  "tabela": "T_MUNICIPIOS",
-  "colunas": {
-    "Cod_ibge": {
-      "alias": "cod_ibge",
-      "tipo": "int"
-    },
-    "Município": {
-      "alias": "municipio",
-      "tipo": "str"
-    },
-    "Cod_RA": {
-      "alias": "cod_ra",
-      "tipo": "int"
-    },
-    "Região Administrativa": {
-      "alias": "regiao_adm",
-      "tipo": "str"
-    },
-    "Região Metropolitana": {
-      "alias": "regiao",
-      "tipo": "str"
-    },
-    "Latitude": {
-      "alias": "latitude",
-      "tipo": "float"
-    },
-    "Longitude": {
-      "alias": "longitude",
-      "tipo": "float"
+    "url": "https://repositorio.seade.gov.br/dataset/34081e86-74ae-4bf7-8b5d-4fb8961435ea/resource/f8ad8f49-02bc-433d-9926-2aae25b6a764/download/divisoes_regionais_esp.csv",
+    "tabela": "T_MUNICIPIOS",
+    "colunas": {
+        "Cod_ibge": {
+            "alias": "cod_ibge",
+            "tipo": "int"
+        },
+        "Município": {
+            "alias": "municipio",
+            "tipo": "str"
+        },
+        "Cod_RA": {
+            "alias": "cod_ra",
+            "tipo": "int"
+        },
+        "Região Administrativa": {
+            "alias": "regiao_adm",
+            "tipo": "str"
+        },
+        "Região Metropolitana": {
+            "alias": "regiao",
+            "tipo": "str"
+        },
+        "Latitude": {
+            "alias": "latitude",
+            "tipo": "float"
+        },
+        "Longitude": {
+            "alias": "longitude",
+            "tipo": "float"
+        }
     }
-  }
 }

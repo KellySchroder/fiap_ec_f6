@@ -1,11 +1,12 @@
 {
+    "url": "https://repositorio.seade.gov.br/dataset/c0e938f3-b765-4f61-9d02-a53df48fcdbf/resource/0dceba63-bd98-4788-b00a-0b5c5556b19f/download/saude_med_enf_mun_ano.csv",
     "tabela": "T_PROF_SAUDE",
     "colunas": {
         "cod_ibge": {
             "alias": "cod_ibge", "tipo": "int"
         },
         "medenf": {
-          "alias": "tipo_prof", "tipo": "str"
+            "alias": "tipo_prof", "tipo": "str"
         },
         "prof_sus": {
             "alias": "qt_sus", "tipo": "int"
